@@ -28,4 +28,10 @@ python hex_viewer.py -f program.exe
 
 	-d    Указание отображения в десятичной системе счисления. По умолчанию в 16 СС
 			Пример: -d
+	-p    Непрерывное отображение кода
+			Пример: python -f program.exe -p
+			Пример: python -f program.exe -p program.txt
+	-r    Преобразование шестнадцатеричного представления в бинарный код
+			Пример: python -f program.txt -r
+			Пример: python -f program.txt -r program.exe
 ```
