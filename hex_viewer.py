@@ -1,7 +1,7 @@
 import sys, binascii
 
 def writeTextFile(filename, textData):
-	with open(filename, 'w') as f:
+	with open(filename, 'w',encoding='utf-8') as f:
 		f.write(textData)
 
 
@@ -127,7 +127,7 @@ def run(args):
 		print('-p и -r  не совместимы!')
 		return
 	if plain:
-		data = str(bytesToHex(readHexFile(filename)))[2:-1]
+		data =str(bytesToHex(readHexFile(filename)))[2:-1]
 		if not plainFile:
 			print(data)
 		else:
