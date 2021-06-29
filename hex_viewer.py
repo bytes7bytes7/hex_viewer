@@ -1,4 +1,4 @@
-import sys
+import sys, binascii
 
 def writeTextFile(filename, textData):
 	with open(filename, 'w') as f:
@@ -22,15 +22,12 @@ def readHexFile(filename):
 	return hexData
 
 
-def bytesToInt(bArray):
-	ints=[]
-	for b in bArray:
-		ints.append(int(b))
-	return ints
+def bytesToHex(bArray):
+	return binascii.hexlify(bArray)
 
 
 def hexToBytes(hexData):
-	return bytes(bytearray([int(hexData[i:i+2],16) for i in range(0, len(hexData), 2)]))
+	return binascii.unhexlify(hexData)
 
 
 def getText(bArray):
@@ -45,42 +42,39 @@ def getText(bArray):
 	return lst
 
 
-def show(bArray, tArray, **kwargs):
-	if len(bArray)==len(tArray):
+def show(hexData, textData, **kwargs):
+	if len(hexData)==2*len(textData):
 		for key, value in kwargs.items():
 			if key=='characters':
 				characters = value
 			elif key=='view':
 				view = value
-		i=0
-		while i*characters<len(bArray):
-			start = i * characters
-			end = min((i + 1) * characters, len(bArray))
+		k=0
+		while k*characters<len(hexData)//2:
+			start = k * characters
+			end = min((k + 1) * characters, len(hexData))
 			byte = []
-			string =[e.replace('\n',' ').replace('\r', ' ').replace('\b','') for e in tArray[start: end]]
+			string =[e.replace('\n',' ').replace('\r', ' ').replace('\b','') for e in textData[start: end]]
 			if view == 'B':
-				for b in  bArray[start: end]:
-					b = str(hex(b))[2:]
-					while len(b) < 2:
-						b = ' '+ b
-					byte.append(b)
+				for i in  range(start*2,end*2,2):
+					byte.append(hexData[i:i+2])
 			elif view== 'b':
-				for b in  bArray[start: end]:
-					b = bin(b)[2:]
-					while len(b) < 8:
-						b = '0'+ b
-					byte.append(b)
+				for i in  range(start*2,end*2,2):
+					if hexData[i:i+2] != '':
+						byte.append(bin(int(hexData[i:i+2], 16))[2:].zfill(8))
+					else:
+						byte.append(' '*8)
 			elif view== 'd':
-				for b in  bArray[start: end]:
-					b = str(b)
-					while len(b) < 3:
-						b = ' '+ b
-					byte.append(b)
+				for i in  range(start*2,end*2,2):
+					if hexData[i:i+2] != '':
+						byte.append(str(int(hexData[i:i+2], 16)).zfill(3))
+					else:
+						byte.append(' '*3)
 			
 			print('{}\t\t{}'.format(' '.join(e for e in byte),''.join(e for e in string)))
-			i+=1
+			k+=1
 	else:
-		raise Exception('Длина байтов != длина символов')
+		raise Exception('Длина байтов != 2 * длина символов')
 
 
 def run(args):
@@ -110,6 +104,8 @@ def run(args):
 			view = 'B'
 		elif arg == '-b':
 			view = 'b'
+		elif arg == '-d':
+			view = 'd'
 		elif arg == '-p':
 			plain=True
 			try:
@@ -131,19 +127,11 @@ def run(args):
 		print('-p и -r  не совместимы!')
 		return
 	if plain:
-		data = readHexFile(filename)
-		bArray = bytesToInt(data)
-		byte = []
-		for b in  bArray:
-			b = str(hex(b))[2:]
-			while len(b)<2:
-				b = '0'+b
-			byte.append(b)
-		byte = ''.join(e for e in byte)
+		data = str(bytesToHex(readHexFile(filename)))[2:-1]
 		if not plainFile:
-			print(byte)
+			print(data)
 		else:
-			writeTextFile(plainFile, byte)
+			writeTextFile(plainFile, data)
 	elif reverse:
 		data = hexToBytes(readTextFile(filename))
 		if not reverseFile:
@@ -152,9 +140,9 @@ def run(args):
 			writeHexFile(reverseFile, data)
 	else:
 		hexData = readHexFile(filename)
-		bArray = bytesToInt(hexData)
-		tArray = getText(bArray)
-		show(bArray,tArray, characters=characters, view=view, plain=plain)
+		textData = getText(hexData)
+		hexData = bytesToHex(hexData)
+		show(str(hexData)[2:-1],textData, characters=characters, view=view, plain=plain)
 
 
 if __name__ == '__main__':
