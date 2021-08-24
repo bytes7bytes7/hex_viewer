@@ -150,14 +150,14 @@ if __name__ == '__main__':
 	if '-h' in args or 	len(args)==0:
 		print('''
 			\r\tСПРАВКА:\n
-			\r\t-h\tВызов этой справки\n
-			\r\t-f\tУказание файла\n\t\t\tПример: python -f program.exe\n
-			\r\t-c\tУказание количества симолов в строке. По умолчанию равно 16\n\t\t\tПример: python -f program.exe -c 1\n
-			\r\t-b\tУказание отображения в двоичной системе счисления. По умолчанию в 16 СС\n\t\t\tПример: python -f program.exe -b\n
-			\r\t-B\tУказание отображения в шестнадцатеричной системе счисления. По умолчанию в 16 СС\n\t\t\tПример: python -f program.exe -B\n
-			\r\t-d\tУказание отображения в десятичной системе счисления. По умолчанию в 16 СС\n\t\t\tПример: python -f program.exe -d\n
-			\r\t-p\tНепрерывное отображение кода\n\t\t\tПример: python -f program.exe -p\n\t\t\tПример: python -f program.exe -p program.txt\n
-			\r\t-r\tПреобразование шестнадцатеричного представления в бинарный код\n\t\t\tПример: python -f program.txt -r\n\t\t\tПример: python -f program.txt -r program.exe\n
+			\r\t-h\tВызов этой справки\n\n
+			\r\t-f\tУказание файла\n\t\t\tПример: python hex_viewer.py -f program.exe\n\n
+			\r\t-c\tУказание количества симолов в строке. По умолчанию равно 16\n\t\t\t	Пример: python hex_viewer.py -f program.exe -c 1\n\n
+			\r\t-b\tУказание отображения в двоичной системе счисления. По умолчанию в 16 СС\n\t\t\tПример: python hex_viewer.py -f program.exe -b\n\n
+			\r\t-B\tУказание отображения в шестнадцатеричной системе счисления. По умолчанию в 16 СС\n\t\t\tПример: python hex_viewer.py -f program.exe -B\n\n
+			\r\t-d\tУказание отображения в десятичной системе счисления. По умолчанию в 16 СС\n\t\t\tПример: python hex_viewer.py -f program.exe -d\n\n
+			\r\t-p\tНепрерывное отображение кода\n\t\t\tПример: python hex_viewer.py -f program.exe -p\n\t\t\tПример: python hex_viewer.py -f program.exe -p program.txt\n\n
+			\r\t-r\tПреобразование шестнадцатеричного представления в бинарный код\n\t\t\tПример: python hex_viewer.py -f program.txt -r\n\t\t\tПример: python hex_viewer.py -f program.txt -r program.exe\n\n
 			''')
 	else:
 		run(args)

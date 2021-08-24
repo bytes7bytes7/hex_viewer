@@ -15,23 +15,25 @@ python hex_viewer.py -f program.exe
 	-h    Вызов этой справки
 
 	-f    Указание файла
-			Пример: -f program.exe
+			Пример: python hex_viewer.py -f program.exe
 
 	-c    Указание количества симолов в строке. По умолчанию равно 16
-			Пример: -c 1
+			Пример: python hex_viewer.py -f program.exe -c 1
 
 	-b    Указание отображения в двоичной системе счисления. По умолчанию в 16 СС
-			Пример: -b
+			Пример: python hex_viewer.py -f program.exe -b
 
 	-B    Указание отображения в шестнадцатеричной системе счисления. По умолчанию в 16 СС
-			Пример: -B
+			Пример: python hex_viewer.py -f program.exe -B
 
 	-d    Указание отображения в десятичной системе счисления. По умолчанию в 16 СС
-			Пример: -d
+			Пример: python hex_viewer.py -f program.exe -d
+
 	-p    Непрерывное отображение кода
-			Пример: python -f program.exe -p
-			Пример: python -f program.exe -p program.txt
+			Пример: python hex_viewer.py -f program.exe -p
+			Пример: python hex_viewer.py -f program.exe -p program.txt
+
 	-r    Преобразование шестнадцатеричного представления в бинарный код
-			Пример: python -f program.txt -r
-			Пример: python -f program.txt -r program.exe
+			Пример: python hex_viewer.py -f program.txt -r
+			Пример: python hex_viewer.py -f program.txt -r program.exe
 ```
